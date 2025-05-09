@@ -4,13 +4,6 @@
 #include "optimizer.h"
 #define SUCESSO 0
 
-void getParametros(ArrayParameters* ap) {
-    int limiarCusto;
-    double a, b, c;
-    scanf(" %d %lf %lf %lf", &limiarCusto, &a, &b, &c);
-    ap = setArrayParameters(a, b, c, limiarCusto, ap);
-}
-
 void imprimeTUDO(int* A, int tam, ArrayParameters* ap) {
     printf("LimiarCusto: %d\n", ap->limiarCusto);
     printf("a: %lf\n", ap->a);
@@ -25,14 +18,35 @@ int main(int argc, char** argv) {
     int n;
     int* Array = NULL;
     ArrayParameters* ap = newArrayParameters();
-    getParametros(ap);
 
-    scanf(" %d", &n);
-    Array = (int*)malloc(n * sizeof(int));
-    for(int i = 0; i < n; i++) scanf(" %d", &(Array[i]));
+    FILE* inFile = fopen("in.txt", "r");
+    if(inFile == NULL){
+
+        int limiarCusto;
+        double a, b, c;
+        scanf(" %d %lf %lf %lf", &limiarCusto, &a, &b, &c);
+        ap = setArrayParameters(a, b, c, limiarCusto, ap);  
+
+        scanf(" %d", &n);
+        Array = (int*)malloc(n * sizeof(int));
+        for(int i = 0; i < n; i++) scanf(" %d", &(Array[i]));
+
+    }else{
+
+        int limiarCusto;
+        double a, b, c;
+        fscanf(inFile, " %d %lf %lf %lf", &limiarCusto, &a, &b, &c);
+        ap = setArrayParameters(a, b, c, limiarCusto, ap);  
+
+        fscanf(inFile, " %d", &n);
+        Array = (int*)malloc(n * sizeof(int));
+        for(int i = 0; i < n; i++) fscanf(inFile, " %d", &(Array[i]));
+
+    }
 
     imprimeTUDO(Array, n, ap);
     int partitionSize = definePartitionSize(Array, n, ap);
+    printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
 
     deleteArrayParameters(ap);
     free(Array);
