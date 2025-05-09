@@ -18,6 +18,6 @@ void increaseCompare(Custo* c);
 void increaseCalls(Custo* c);
 void increaseMoves(Custo* c);
 
-float calcCusto(Custo* custo, float a, float b, float c);
+double calcCusto(Custo* custo, double a, double b, double c);
 
 #endif

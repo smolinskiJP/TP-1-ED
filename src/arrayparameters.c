@@ -1,11 +1,15 @@
 #include "arrayparameters.h"
 
-ArrayParameters* newArrayParameters(int a, int b, int c, int limiarCusto){
-    ArrayParameters* ap = (ArrayParameters*)malloc(sizeof(ArrayParameters));
+ArrayParameters* setArrayParameters(double a, double b, double c, int limiarCusto, ArrayParameters* ap){
     ap->a = a;
     ap->b = b;
     ap->c = c;
     ap->limiarCusto = limiarCusto;
+    return ap;
+}
+
+ArrayParameters* newArrayParameters(){
+    ArrayParameters* ap = (ArrayParameters*)malloc(sizeof(ArrayParameters));
     return ap;
 }
 

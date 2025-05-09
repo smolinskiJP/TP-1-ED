@@ -4,13 +4,14 @@
 #include <stdlib.h>
 
 typedef struct s_array_parameters{
-    int a;
-    int b;
-    int c;
+    double a;
+    double b;
+    double c;
     int limiarCusto;
 } ArrayParameters;
 
-ArrayParameters* newArrayParameters(int a, int b, int c, int limiarCusto);
+ArrayParameters* setArrayParameters(double a, double b, double c, int limiarCusto, ArrayParameters* ap);
+ArrayParameters* newArrayParameters();
 void deleteArrayParameters(ArrayParameters* ap);
 
 #endif

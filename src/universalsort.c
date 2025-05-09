@@ -119,6 +119,4 @@ void OrdenadorUniversalOptimizer(int * A, int tam, int minSizePartition, int bre
 
     //desalocar array ordenado
     free(B);
-
-    return custo;
 }

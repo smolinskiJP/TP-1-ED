@@ -30,6 +30,6 @@ void increaseMoves(Custo* c){
     c->moves++;
 }
 
-float calcCusto(Custo* custo, float a, float b, float c){
+double calcCusto(Custo* custo, double a, double b, double c){
     return (custo->compare * a) + (custo->moves * b) + (custo->calls * c);
 }
