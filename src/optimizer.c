@@ -13,7 +13,7 @@ int definePartitionSize(int * A, int tam, ArrayParameters* ap){
         printf("iter %d\n", iter);
         numMPS = 0;
         for(int t = minMPS; t <= maxMPS; t += stepMPS){
-            OrdenadorUniversalOptmizer(A, tam, t, tam, custo);
+            OrdenadorUniversalOptimizer(A, tam, t, tam, custo);
             registraEstatisticas(custos, numMPS, custo, ap);
             printf("mps %d cost %f cmp %d move %d calls %d\n", t, custos[numMPS], custo->compare, custo->moves, custo->calls);
             numMPS++;
