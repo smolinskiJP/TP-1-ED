@@ -2,10 +2,11 @@
 #define UNIVERSAL_SORT_H
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "custo.h"
 
 void swap(int* a, int* b, Custo* c);
-void quickSort3Ins(int * A, int l, int r, Custo* custo);
+void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition);
 void partition3(int * A, int l, int r, int *i, int *j, Custo* custo);
 void insertionSort(int v[], int l, int r, Custo* custo);
 int median(int a, int b, int c);

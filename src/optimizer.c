@@ -16,8 +16,8 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         printf("\niter %d\n", iter);
         numMPS = 0;
         for (int t = minMPS; t <= maxMPS; t += stepMPS) {
-            for(int i  = 0; i < tam; i++) printf("%d ", A[i]);
-            printf("\n");
+            //for(int i  = 0; i < tam; i++) printf("%d ", A[i]);
+            //printf("\n");
             OrdenadorUniversalOptimizer(A, tam, t, 0, custo);
             registraEstatisticas(custos, numMPS, custo, ap);
             printf("mps %d cost %lf cmp %d move %d calls %d\n", t, custos[numMPS], custo->compare, custo->moves, custo->calls);
@@ -27,10 +27,15 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
 
         int minIndex = menorCusto(custos, numMPS);
         limParticao = getMPS(minIndex, minMPS, stepMPS);
-        calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
-        diffCusto = fabs(custos[minMPS] - custos[maxMPS]);
 
-        printf("nummps %d limParticao %d mpsdiff %lf", numMPS, limParticao, diffCusto);
+        int maxLim = minIndex + 1;
+        if(minIndex == 0) maxLim = minIndex + 2;
+        else if(minIndex == numMPS - 1) maxLim = minIndex;
+
+        calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
+        diffCusto = fabs(custos[maxLim - 2] - custos[maxLim]);
+
+        printf("customin %lf min %d customax %lf max %d nummps %d limParticao %d mpsdiff %lf\n", custos[maxLim - 2], minMPS, custos[maxLim], maxMPS, numMPS, limParticao, diffCusto);
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));
@@ -54,8 +59,8 @@ void calculaNovaFaixa(int limParticao, int* minMPS, int* maxMPS, int numMPS, int
         newMin = limParticao - 1;
         newMax = limParticao + 1;
     }
-    (*minMPS) = getMPS(newMin, *minMPS, *stepMPS);
     (*maxMPS) = getMPS(newMax, *minMPS, *stepMPS);
+    (*minMPS) = getMPS(newMin, *minMPS, *stepMPS);
     (*stepMPS) = (int)(*maxMPS - *minMPS) / 5;
     if ((*stepMPS) == 0) (*stepMPS)++;
 }

@@ -13,9 +13,9 @@ void swap(int* a, int* b, Custo* c){
 }
 
 
-void quickSort3Ins(int * A, int l, int r, Custo* custo){
+void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition){
     if (l >= r) return;
-    if(r - l <= 50) {
+    if(r - l <= minSizePartition) {
         insertionSort(A, l, r, custo);
         return;
     }
@@ -23,8 +23,8 @@ void quickSort3Ins(int * A, int l, int r, Custo* custo){
     //passo recursivo
     int i, j;
     partition3(A, l, r, &i, &j, custo);
-    quickSort3Ins(A, l, j, custo);
-    quickSort3Ins(A, i, r, custo);
+    quickSort3Ins(A, l, j, custo, minSizePartition);
+    quickSort3Ins(A, i, r, custo, minSizePartition);
 }
 
 void partition3(int * A, int l, int r, int *i, int *j, Custo* custo){
@@ -111,10 +111,10 @@ void OrdenadorUniversalOptimizer(int * A, int tam, int minSizePartition, int bre
     //copiar array (para ter um array reserva depois que ordenar o "atual")
     int* B = (int*)malloc(tam * sizeof(int));
     for(int i = 0; i < tam; i++) B[i] = A[i];
-
     int breakCount = countBreak(B, tam);
+    //printf("breaks %d ", breakCount);
     if(breakCount < breakMax) insertionSort(B, 0, tam - 1, custo);
-    else if(tam > minSizePartition) quickSort3Ins(B, 0, tam - 1, custo);
+    else if(tam > minSizePartition) quickSort3Ins(B, 0, tam - 1, custo, minSizePartition);
     else insertionSort(B, 0, tam - 1, custo);
 
     //desalocar array ordenado
