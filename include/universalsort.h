@@ -10,6 +10,6 @@ void insertionSort(int v[], int l, int r);
 int median(int a, int b, int c);
 void universalSort(int * A, int tam, int minSizePartition, int breakMax);
 int countBreak(int * A, int tam);
-Custo OrdenadorUniversalOptmizer();
+void OrdenadorUniversalOptmizer(int * A, int tam, int minSizePartition, int breakMax, Custo* custo);
 
 #endif

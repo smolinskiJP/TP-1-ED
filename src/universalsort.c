@@ -77,4 +77,18 @@ int countBreak(int * A, int tam){
     return count;
 }
 
-Custo OrdenadorUniversalOptmizer(){}
+void OrdenadorUniversalOptmizer(int * A, int tam, int minSizePartition, int breakMax, Custo* custo){
+    //copiar array (para ter um array reserva depois que ordenar o "atual")
+    int* B = (int*)malloc(tam * sizeof(int));
+    for(int i = 0; i < tam; i++) B[i] = A[i];
+
+    int breakCount = countBreak(B, tam);
+    if(breakCount < breakMax) insertionSort(B, 0, tam - 1);
+    else if(tam > minSizePartition) quickSort3Ins(B, 0, tam - 1);
+    else insertionSort(B, 0, tam - 1);
+
+    //desalocar array ordenado
+    free(B);
+    
+    return custo;
+}

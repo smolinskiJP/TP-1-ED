@@ -11,9 +11,13 @@ typedef struct s_custo{
 
 Custo* newCusto();
 void deleteCusto(Custo* c);
+
+void resetCusto(Custo* c);
+
 void increaseCompare(Custo* c);
 void increaseCalls(Custo* c);
 void increaseMoves(Custo* c);
+
 float calcCusto(Custo* custo, float a, float b, float c);
 
 #endif

@@ -12,6 +12,12 @@ void deleteCusto(Custo* c){
     free(c);
 }
 
+void resetCusto(Custo* c){
+    c->calls = 0;
+    c->compare = 0;
+    c->moves = 0;
+}
+
 void increaseCompare(Custo* c){
     c->compare++;
 }
