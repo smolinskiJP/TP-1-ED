@@ -8,7 +8,7 @@ ArrayParameters* setArrayParameters(double a, double b, double c, int limiarCust
     return ap;
 }
 
-ArrayParameters* newArrayParameters(){
+ArrayParameters* newArrayParameters(void){
     ArrayParameters* ap = (ArrayParameters*)malloc(sizeof(ArrayParameters));
     return ap;
 }

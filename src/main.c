@@ -47,9 +47,12 @@ int main(int argc, char** argv) {
     fclose(inFile);
 
     imprimeTUDO(Array, n, ap);
+
     int partitionSize = definePartitionSize(Array, n, ap);
     printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
-
+    int breakMax = defineBreakLimit(Array, n, ap);
+    printf("\nO limite otimizado de quebra eh: %d\n", breakMax);
+    
     deleteArrayParameters(ap);
     free(Array);
     return SUCESSO;

@@ -8,10 +8,14 @@
 #include "arrayparameters.h"
 #include "custo.h"
 
+int defineBreakLimit(int* A, int tam, ArrayParameters* ap);
 int definePartitionSize(int * A, int tam, ArrayParameters* ap);
+void calculaNovaFaixaBreak();
 void calculaNovaFaixa(int limParticao, int* minMPS, int* maxMPS, int numMPS, int* stepMPS);
 int getMPS(int index, int start, int step);
+int getBreak(int index, int start, int step);
 void registraEstatisticas(double* A, int index, Custo* custo, ArrayParameters* ap);
 int menorCusto(double* A, int size);
+int menorCustoDiff(double* A, double* B, int size);
 
 #endif

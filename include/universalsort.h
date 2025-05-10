@@ -6,12 +6,14 @@
 #include "custo.h"
 
 void swap(int* a, int* b, Custo* c);
-void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition);
+void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition, int breakMax);
 void partition3(int * A, int l, int r, int *i, int *j, Custo* custo);
 void insertionSort(int v[], int l, int r, Custo* custo);
 int median(int a, int b, int c);
 //void universalSort(int * A, int tam, int minSizePartition, int breakMax);
-int countBreak(int * A, int tam);
-void OrdenadorUniversalOptimizer(int * A, int tam, int minSizePartition, int breakMax, Custo* custo);
+int countBreak(int * A, int l, int tam);
+void OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition, Custo* custo);
+void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* custoQuick, Custo* custoInsertion);
+int quickSortOptimizer(int* A, int tamanho, int left, int right, int breakMax, Custo* custoQuick, Custo* custoInsertion);
 
 #endif

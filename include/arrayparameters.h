@@ -11,7 +11,7 @@ typedef struct s_array_parameters{
 } ArrayParameters;
 
 ArrayParameters* setArrayParameters(double a, double b, double c, int limiarCusto, ArrayParameters* ap);
-ArrayParameters* newArrayParameters();
+ArrayParameters* newArrayParameters(void);
 void deleteArrayParameters(ArrayParameters* ap);
 
 #endif

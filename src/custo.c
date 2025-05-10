@@ -1,6 +1,6 @@
 #include "custo.h"
 
-Custo* newCusto(){
+Custo* newCusto(void){
     Custo* c = (Custo*)malloc(sizeof(Custo));
     c->calls = 0;
     c->compare = 0;

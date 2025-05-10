@@ -9,7 +9,7 @@ typedef struct s_custo{
     int moves;
 } Custo;
 
-Custo* newCusto();
+Custo* newCusto(void);
 void deleteCusto(Custo* c);
 
 void resetCusto(Custo* c);
