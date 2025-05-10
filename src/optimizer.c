@@ -1,5 +1,50 @@
 #include "optimizer.h"
 
+int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
+    printf("size %d seed ? breaks %d\n", tam, countBreak(A, tam));
+    int minLQ = 1, maxLQ = tam;
+    int stepLQ = (maxLQ - minLQ) / 5;
+    int limBreak, numLQ;
+    double diffCusto;
+    double* custos = (double*)malloc(tam * sizeof(double));
+    Custo* custo = newCusto();
+    int iter = 0;
+
+    do{
+        printf("\niter %d\n", iter);
+        numLQ = 0;
+        for(int t = minLQ; t <= maxLQ; t += stepLQ){
+            //for(int i  = 0; i < tam; i++) printf("%d ", A[i]);
+            //printf("\n");
+            OrdenadorUniversalOptimizer(A, tam, 2, t, custo);
+            registraEstatisticas(custos, numLQ, custo, ap);
+            printf("");
+            numLQ++;
+            resetCusto(custo);
+        }
+
+        int minIndex = menorCusto(custos, numLQ);
+        limBreak = getMPS(minIndex, minLQ, stepLQ);
+
+        int maxLim = minIndex + 1;
+        if(minIndex == 0) maxLim = minIndex + 2;
+        else if(minIndex == numLQ - 1) maxLim = minIndex;
+
+        calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
+        diffCusto = fabs(custos[maxLim - 2] - custos[maxLim]);
+
+        printf("customin %lf min %d customax %lf max %d numlq %d limQuebras %d lqdiff %lf\n", custos[maxLim - 2], minLQ, custos[maxLim], maxLQ, numLQ, limBreak, diffCusto);
+
+        iter++;
+
+
+    }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
+
+    free(custos);
+    deleteCusto(custo);
+    return limBreak;
+}
+
 int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
 
     printf("size %d seed ? breaks %d\n", tam, countBreak(A, tam));
