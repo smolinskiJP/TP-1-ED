@@ -12,7 +12,6 @@ void swap(int* a, int* b, Custo* c){
     *b = temp;
 }
 
-
 void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition, int breakMax){
     if (l >= r) return;
     if((r - l <= minSizePartition) || (countBreak(A, l, r + 1)) < breakMax) {
@@ -58,11 +57,9 @@ void partition3(int * A, int l, int r, int *i, int *j, Custo* custo){
 
 void insertionSort(int v[], int l, int r, Custo* custo){
     increaseCalls(custo);
-
     l++;
     int aux, j;
     for(; l <= r; l++){
-
         aux = v[l];
         increaseMoves(custo);
 
@@ -134,7 +131,7 @@ int quickSortOptimizer(int* A, int tamanho, int left, int right, int breakMax, C
 
     if (left >= right) return 0;
     if(countBreak(A, 0, tamanho) <= breakMax){
-        insertionSort(A, 0, tamanho, custoInsertion);
+        insertionSort(A, 0, tamanho - 1, custoInsertion);
         return -1; //flag para dizer que ordenou
     }
 
@@ -147,4 +144,9 @@ int quickSortOptimizer(int* A, int tamanho, int left, int right, int breakMax, C
         return -1;
     }
     return quickSortOptimizer(A, tamanho, i, right, breakMax, custoQuick, custoInsertion);
+}
+
+void imprime(int* A, int tam){
+    for(int i = 0; i < tam/10; i++) printf("%d ", A[i]);
+    printf("\n");
 }
