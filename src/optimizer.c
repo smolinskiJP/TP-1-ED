@@ -144,7 +144,7 @@ int menorCusto(double* A, int size) {
 
 int menorCustoDiff(double* A, double* B, int size){
     int min = 0;
-    for (int i = 1; i < size; i ++) if (fabs(A[min] - B[min]) > fabs(A[i] - B[i])) min = i;
+    for (int i = 1; i < size; i ++) if (absolute(A[min] - B[min]) > absolute(A[i] - B[i])) min = i;
     return min;
 }
 
