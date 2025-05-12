@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 #include "universalsort.h"
 #include "arrayparameters.h"
 #include "custo.h"
@@ -17,5 +16,6 @@ int getBreak(int index, int start, int step);
 void registraEstatisticas(double* A, int index, Custo* custo, ArrayParameters* ap);
 int menorCusto(double* A, int size);
 int menorCustoDiff(double* A, double* B, int size);
+double absolute(double d);
 
 #endif

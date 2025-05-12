@@ -44,7 +44,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
         else if(minIndex == numLQ - 1) maxLim = minIndex;
 
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
-        diffCusto = fabs(custosI[maxLim - 2] - custosI[maxLim]);
+        diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
         printf("customin %lf min %d customax %lf max %d numlq %d limQuebras %d lqdiff %lf\n", custosI[maxLim - 2], minLQ, custosI[maxLim], maxLQ, numLQ, limBreak, diffCusto);
 
@@ -91,7 +91,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         else if(minIndex == numMPS - 1) maxLim = minIndex;
 
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
-        diffCusto = fabs(custos[maxLim - 2] - custos[maxLim]);
+        diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
 
         printf("customin %lf min %d customax %lf max %d nummps %d limParticao %d mpsdiff %lf\n", custos[maxLim - 2], minMPS, custos[maxLim], maxMPS, numMPS, limParticao, diffCusto);
 
@@ -146,4 +146,9 @@ int menorCustoDiff(double* A, double* B, int size){
     int min = 0;
     for (int i = 1; i < size; i ++) if (fabs(A[min] - B[min]) > fabs(A[i] - B[i])) min = i;
     return min;
+}
+
+double absolute(double d){
+    if(d < 0) return -1.0 * d;
+    return d;
 }
