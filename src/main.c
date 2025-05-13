@@ -22,10 +22,11 @@ int main(int argc, char** argv) {
     FILE* inFile = fopen(argv[1], "r");
     if(inFile == NULL){
 
+        unsigned int seed;
         int limiarCusto;
         double a, b, c;
-        scanf(" %d %lf %lf %lf", &limiarCusto, &a, &b, &c);
-        ap = setArrayParameters(a, b, c, limiarCusto, ap);  
+        scanf("%d %d %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
+        ap = setArrayParameters(seed, a, b, c, limiarCusto, ap);  
 
         scanf(" %d", &n);
         Array = (int*)malloc(n * sizeof(int));
@@ -33,10 +34,11 @@ int main(int argc, char** argv) {
 
     }else{
 
+        unsigned int seed;
         int limiarCusto;
         double a, b, c;
-        fscanf(inFile, " %d %lf %lf %lf", &limiarCusto, &a, &b, &c);
-        ap = setArrayParameters(a, b, c, limiarCusto, ap);  
+        fscanf(inFile, " %d %d %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
+        ap = setArrayParameters(seed, a, b, c, limiarCusto, ap);  
 
         fscanf(inFile, " %d", &n);
         Array = (int*)malloc(n * sizeof(int));
@@ -47,12 +49,13 @@ int main(int argc, char** argv) {
     fclose(inFile);
 
     //imprimeTUDO(Array, n, ap);
+    srand(ap->seed);
 
     int partitionSize = definePartitionSize(Array, n, ap);
     int breakMax = defineBreakLimit(Array, n, ap);
 
-    //printf("\nO limite otimizado de quebra eh: %d", breakMax);
-    //printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
+    printf("\nO limite otimizado de quebra eh: %d", breakMax);
+    printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
     
     deleteArrayParameters(ap);
     free(Array);

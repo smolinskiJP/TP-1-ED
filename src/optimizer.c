@@ -1,7 +1,7 @@
 #include "optimizer.h"
 
 int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
-    printf("size %d seed ? breaks %d\n", tam, countBreak(A, 0, tam));
+    printf("size %d seed %d breaks %d\n", tam, ap->seed, countBreak(A, 0, tam));
     int minLQ = 1, maxLQ = (tam - 1)/2;
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
@@ -22,18 +22,21 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
             //registraEstatisticas(custos, numLQ, custo, ap);
             //printf("");
             //numLQ++;
+
             OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
 
+            //quickSort
             registraEstatisticas(custosQ, numLQ, custoQuick, ap);
             printf("qs lq %d cost %lf comp %d move %d calls %d\n", t, custosQ[numLQ], custoQuick->compare, custoQuick->moves, custoQuick->calls);
-            
+            resetCusto(custoQuick);
+
+            //insertionSort
             registraEstatisticas(custosI, numLQ, custoInsertion, ap);
             printf("in lq %d cost %lf comp %d move %d calls %d\n", t, custosI[numLQ], custoInsertion->compare, custoInsertion->moves, custoInsertion->calls);
-
-            numLQ++;
-
-            resetCusto(custoQuick);
             resetCusto(custoInsertion);
+
+            //OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
+            numLQ++;
         }
 
         int minIndex = menorCustoDiff(custosI, custosQ, numLQ);
@@ -60,7 +63,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
 
 int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
 
-    printf("size %d seed ? breaks %d\n", tam, countBreak(A, 0, tam));
+    printf("size %d seed %d breaks %d\n", tam, ap->seed, countBreak(A, 0, tam));
 
     int minMPS = 2, maxMPS = tam;
     int stepMPS = (maxMPS - minMPS) / 5;
