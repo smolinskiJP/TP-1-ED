@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     int* Array = NULL;
     ArrayParameters* ap = newArrayParameters();
 
-    FILE* inFile = fopen("in.txt", "r");
+    FILE* inFile = fopen(argv[1], "r");
     if(inFile == NULL){
 
         int limiarCusto;
@@ -46,13 +46,13 @@ int main(int argc, char** argv) {
 
     fclose(inFile);
 
-    imprimeTUDO(Array, n, ap);
+    //imprimeTUDO(Array, n, ap);
 
     int partitionSize = definePartitionSize(Array, n, ap);
     int breakMax = defineBreakLimit(Array, n, ap);
 
-    printf("\nO limite otimizado de quebra eh: %d", breakMax);
-    printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
+    //printf("\nO limite otimizado de quebra eh: %d", breakMax);
+    //printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
     
     deleteArrayParameters(ap);
     free(Array);

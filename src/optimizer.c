@@ -46,7 +46,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
         diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
-        printf("customin %lf min %d customax %lf max %d numlq %d limQuebras %d lqdiff %lf\n", custosI[maxLim - 2], minLQ, custosI[maxLim], maxLQ, numLQ, limBreak, diffCusto);
+        printf("numlq %d limQuebras %d lqdiff %lf\n", numLQ, limBreak, diffCusto);
 
         iter++;
     }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
@@ -93,7 +93,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
 
-        printf("customin %lf min %d customax %lf max %d nummps %d limParticao %d mpsdiff %lf\n", custos[maxLim - 2], minMPS, custos[maxLim], maxMPS, numMPS, limParticao, diffCusto);
+        printf("nummps %d limParticao %d mpsdiff %lf\n", numMPS, limParticao, diffCusto);
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));
