@@ -1,7 +1,7 @@
 #include "optimizer.h"
 
 int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
-    int minLQ = 1, maxLQ = countBreak(A, 0, tam);
+    int minLQ = 1, maxLQ = tam / 2;
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
     float diffCusto;
@@ -53,7 +53,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
         //printf("%.9lf %.9lf\n", custosI[maxLim - 2], custosI[maxLim]);
         //printf("%lf\n", diffCusto);
         //printf("diffcusto: %.9lf\n", diffCusto);
-        printf("numlq %d limQuebras %d lqdiff %.6f\n", numLQ, limBreak, diffCusto);
+        printf("numlq %d limQuebras %d lqdiff %f\n", numLQ, limBreak, diffCusto);
 
         iter++;
     }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
@@ -95,10 +95,10 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         else if(minIndex == numMPS - 1) maxLim = minIndex;
 
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
-        diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
+        diffCusto = (float)absolute(custos[maxLim - 2] - custos[maxLim]);
         
         //printf("diffcusto: %.9lf\n", diffCusto);
-        printf("nummps %d limParticao %d mpsdiff %.6f\n", numMPS, limParticao, diffCusto);
+        printf("nummps %d limParticao %d mpsdiff %f\n", numMPS, limParticao, diffCusto);
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));
