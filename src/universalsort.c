@@ -165,8 +165,7 @@ void imprime(int* A, int tam){
 }
 
 void arrayShuffler(int* A, int tam, int totalBreaks){
-    int numBreaks = countBreak(A, 0, tam);
-    while(numBreaks < totalBreaks){
+    for(int i = 0; i < totalBreaks; i++){
         int i1 = 0, i2 = 0;
         while(i1 == i2){
             i1 = (rand() % tam);
@@ -176,7 +175,6 @@ void arrayShuffler(int* A, int tam, int totalBreaks){
         int temp = A[i1];
         A[i1] = A[i2];
         A[i2] = temp;
-        numBreaks = countBreak(A, 0, tam);
     }
 }
 
