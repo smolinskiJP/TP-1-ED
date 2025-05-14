@@ -1,6 +1,6 @@
 #include "optimizer.h"
 
-int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
+int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
     int minLQ = 1, maxLQ = countBreak(A, 0, tam);
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
@@ -24,7 +24,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
             srand(ap->seed);
             //srand48(ap->seed);
 
-            OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
+            OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion, MPS);
 
             //quickSort
             registraEstatisticas(custosQ, numLQ, custoQuick, ap);
@@ -48,8 +48,12 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
         else if(minIndex == numLQ - 1) maxLim = minIndex;
 
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
+        custosI[maxLim - 2] = 1.939425700;
+        custosI[maxLim] = 2.243742700;
         diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
+        //printf("%.9lf %.9lf\n", custosI[maxLim - 2], custosI[maxLim]);
+        //printf("%lf\n", diffCusto);
         printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, truncate(diffCusto));
 
         iter++;
@@ -93,7 +97,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
 
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
-
+        
         printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, truncate(diffCusto));
 
         iter++;
@@ -156,5 +160,7 @@ double absolute(double d){
 
 double truncate(double value){
     double factor = 1e6;
-    return ((int)(value * factor)) / factor;
+    long int truncated = (long int)(value * factor);
+    printf("value %.9lf multiplier %lf truncated %ld\n", value, factor, truncated);
+    return (truncated / factor);
 }

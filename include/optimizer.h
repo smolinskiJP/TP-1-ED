@@ -8,7 +8,7 @@
 #include "arrayparameters.h"
 #include "custo.h"
 
-int defineBreakLimit(int* A, int tam, ArrayParameters* ap);
+int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS);
 int definePartitionSize(int * A, int tam, ArrayParameters* ap);
 void calculaNovaFaixa(int limParticao, int* minMPS, int* maxMPS, int numMPS, int* stepMPS);
 int getMPS(int index, int start, int step);

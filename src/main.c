@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     printf("size %d seed %d breaks %d\n", n, ap->seed, countBreak(Array, 0, n));
 
     int partitionSize = definePartitionSize(Array, n, ap);
-    int breakMax = defineBreakLimit(Array, n, ap);
+    int breakMax = defineBreakLimit(Array, n, ap, partitionSize);
 
     //printf("\nO limite otimizado de quebra eh: %d", breakMax);
     //printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
