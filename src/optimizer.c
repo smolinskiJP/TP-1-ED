@@ -4,7 +4,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
     int minLQ = 1, maxLQ = countBreak(A, 0, tam);
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
-    double diffCusto;
+    float diffCusto;
     double* custosQ = (double*)malloc(tam * sizeof(double));
     double* custosI = (double*)malloc(tam * sizeof(double));
     Custo* custoQuick = newCusto();
@@ -48,14 +48,12 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
         else if(minIndex == numLQ - 1) maxLim = minIndex;
 
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
-        custosI[maxLim - 2] = 1.939425700;
-        custosI[maxLim] = 2.243742700;
         diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
         //printf("%.9lf %.9lf\n", custosI[maxLim - 2], custosI[maxLim]);
         //printf("%lf\n", diffCusto);
         //printf("diffcusto: %.9lf\n", diffCusto);
-        printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, truncate(diffCusto));
+        printf("numlq %d limQuebras %d lqdiff %.6f\n", numLQ, limBreak, diffCusto);
 
         iter++;
     }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
@@ -71,7 +69,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
     int minMPS = 2, maxMPS = tam;
     int stepMPS = (maxMPS - minMPS) / 5;
     int limParticao, numMPS;
-    double diffCusto;
+    float diffCusto;
     double* custos = (double*)malloc(tam * sizeof(double));
     Custo* custo = newCusto();
     int iter = 0;
@@ -100,7 +98,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
         
         //printf("diffcusto: %.9lf\n", diffCusto);
-        printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, truncate(diffCusto));
+        printf("nummps %d limParticao %d mpsdiff %.6f\n", numMPS, limParticao, diffCusto);
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));
@@ -155,14 +153,14 @@ int menorCustoDiff(double* A, double* B, int size){
     return min;
 }
 
-double absolute(double d){
+float absolute(double d){
     if(d < 0) return -1.0 * d;
     return d;
 }
 
-double truncate(double value){
+/*double truncate(double value){
     double factor = 1e6;
     double epsilon = 1e-9;
     long int truncated = (long int)(value * factor + epsilon);
     return (truncated / factor);
-}
+}*/
