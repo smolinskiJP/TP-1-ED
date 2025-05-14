@@ -8,10 +8,10 @@ typedef struct s_array_parameters{
     double a;
     double b;
     double c;
-    int limiarCusto;
+    double limiarCusto;
 } ArrayParameters;
 
-ArrayParameters* setArrayParameters(unsigned int seed, double a, double b, double c, int limiarCusto, ArrayParameters* ap);
+ArrayParameters* setArrayParameters(unsigned int seed, double a, double b, double c, double limiarCusto, ArrayParameters* ap);
 ArrayParameters* newArrayParameters(void);
 void deleteArrayParameters(ArrayParameters* ap);
 

@@ -14,7 +14,7 @@ void swap(int* a, int* b, Custo* c){
 
 void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition){
     if (l >= r) return;
-    if(r - l <= minSizePartition) {
+    if(r - l < minSizePartition) {
         insertionSort(A, l, r, custo);
         return;
     }
@@ -28,10 +28,11 @@ void quickSort3Ins(int * A, int l, int r, Custo* custo, int minSizePartition){
 
 void partition3(int * A, int l, int r, int *i, int *j, Custo* custo){
     increaseCalls(custo);
+    //printf("p: %d %d\n", l, r);
     
     (*i) = l;
     (*j) = r;
-    int pivot = median(A[(*i)], A[(*j)], A[(*i + *j) / 2]);
+    int pivot = median(A[l], A[r], A[(l + r) / 2]);
     
     do{
         increaseCompare(custo);
@@ -46,7 +47,7 @@ void partition3(int * A, int l, int r, int *i, int *j, Custo* custo){
             (*j)--;
         } 
 
-      if(*i <= *j){
+      if((*i) <= (*j)){
         swap(&A[*i], &A[*j], custo);
         (*i)++;
         (*j)--;
@@ -81,14 +82,14 @@ void insertionSort(int v[], int l, int r, Custo* custo){
 }
 
 int median(int a, int b, int c){
-    if(b <= a){
-        if(c <= b) return b;
-        if(c <= a) return c;
-        return a;
-    }
-    if(c <= a) return a;
-    if(c <= b) return c;
-    return b;
+    if(b <= a){ // _ b _ a _
+        if(c <= b) return b; // c b a
+        if(c <= a) return c; // b c a
+        return a; // b a c
+    } // _ a _ b _
+    if(c <= a) return a; // c a b
+    if(c <= b) return c; // a c b
+    return b; // a b c
 }
 
 /*void universalSort(int * A, int tam, int minSizePartition, int breakMax){
@@ -114,6 +115,8 @@ void OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition
     if(tam > minSizePartition) quickSort3Ins(B, 0, tam - 1, custo, minSizePartition);
     else insertionSort(B, 0, tam - 1, custo);
 
+    //printf("break: %d", countBreak(B, 0, tam));
+
     //desalocar array ordenado
     free(B);
 }
@@ -138,25 +141,6 @@ void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* cust
 
     free(C);
     free(B);
-}
-
-int quickSortOptimizer(int* A, int tamanho, int left, int right, int breakMax, Custo* custoQuick, Custo* custoInsertion){
-
-    if (left >= right) return 0;
-    if(countBreak(A, 0, tamanho) <= breakMax){
-        insertionSort(A, 0, tamanho - 1, custoInsertion);
-        return -1; //flag para dizer que ordenou
-    }
-
-    increaseCalls(custoQuick);
-    //passo recursivo
-    int i, j;
-    partition3(A, left, right, &i, &j, custoQuick);
-
-    if (quickSortOptimizer(A, tamanho, left, j, breakMax, custoQuick, custoInsertion) == -1){
-        return -1;
-    }
-    return quickSortOptimizer(A, tamanho, i, right, breakMax, custoQuick, custoInsertion);
 }
 
 void imprime(int* A, int tam){

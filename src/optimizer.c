@@ -1,8 +1,7 @@
 #include "optimizer.h"
 
 int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
-    printf("size %d seed %d breaks %d\n", tam, ap->seed, countBreak(A, 0, tam));
-    int minLQ = 1, maxLQ = (tam - 1)/2;
+    int minLQ = 1, maxLQ = countBreak(A, 0, tam);
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
     double diffCusto;
@@ -27,12 +26,12 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
 
             //quickSort
             registraEstatisticas(custosQ, numLQ, custoQuick, ap);
-            printf("qs lq %d cost %lf comp %d move %d calls %d\n", t, custosQ[numLQ], custoQuick->compare, custoQuick->moves, custoQuick->calls);
+            printf("qs lq %d cost %.9lf comp %d move %d calls %d\n", t, custosQ[numLQ], custoQuick->compare, custoQuick->moves, custoQuick->calls);
             resetCusto(custoQuick);
 
             //insertionSort
             registraEstatisticas(custosI, numLQ, custoInsertion, ap);
-            printf("in lq %d cost %lf comp %d move %d calls %d\n", t, custosI[numLQ], custoInsertion->compare, custoInsertion->moves, custoInsertion->calls);
+            printf("in lq %d cost %.9lf comp %d move %d calls %d\n", t, custosI[numLQ], custoInsertion->compare, custoInsertion->moves, custoInsertion->calls);
             resetCusto(custoInsertion);
 
             //OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
@@ -49,7 +48,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
         diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
-        printf("numlq %d limQuebras %d lqdiff %lf\n", numLQ, limBreak, diffCusto);
+        printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, diffCusto);
 
         iter++;
     }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
@@ -62,9 +61,6 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
 }
 
 int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
-
-    printf("size %d seed %d breaks %d\n", tam, ap->seed, countBreak(A, 0, tam));
-
     int minMPS = 2, maxMPS = tam;
     int stepMPS = (maxMPS - minMPS) / 5;
     int limParticao, numMPS;
@@ -81,7 +77,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
             //printf("\n");
             OrdenadorUniversalPartitionOptimizer(A, tam, t, custo);
             registraEstatisticas(custos, numMPS, custo, ap);
-            printf("mps %d cost %lf cmp %d move %d calls %d\n", t, custos[numMPS], custo->compare, custo->moves, custo->calls);
+            printf("mps %d cost %.9lf cmp %d move %d calls %d\n", t, custos[numMPS], custo->compare, custo->moves, custo->calls);
             numMPS++;
             resetCusto(custo);
         }
@@ -96,7 +92,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
 
-        printf("nummps %d limParticao %d mpsdiff %lf\n", numMPS, limParticao, diffCusto);
+        printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, diffCusto);
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));

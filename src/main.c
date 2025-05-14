@@ -5,7 +5,7 @@
 #define SUCESSO 0
 
 void imprimeTUDO(int* A, int tam, ArrayParameters* ap) {
-    printf("LimiarCusto: %d\n", ap->limiarCusto);
+    printf("LimiarCusto: %lf\n", ap->limiarCusto);
     printf("a: %lf\n", ap->a);
     printf("b: %lf\n", ap->b);
     printf("c: %lf\n", ap->c);
@@ -23,9 +23,9 @@ int main(int argc, char** argv) {
     if(inFile == NULL){
 
         unsigned int seed;
-        int limiarCusto;
+        double limiarCusto;
         double a, b, c;
-        scanf("%d %d %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
+        scanf("%d %lf %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
         ap = setArrayParameters(seed, a, b, c, limiarCusto, ap);  
 
         scanf(" %d", &n);
@@ -35,9 +35,9 @@ int main(int argc, char** argv) {
     }else{
 
         unsigned int seed;
-        int limiarCusto;
+        double limiarCusto;
         double a, b, c;
-        fscanf(inFile, " %d %d %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
+        fscanf(inFile, " %d %lf %lf %lf %lf", &seed, &limiarCusto, &a, &b, &c);
         ap = setArrayParameters(seed, a, b, c, limiarCusto, ap);  
 
         fscanf(inFile, " %d", &n);
@@ -50,11 +50,13 @@ int main(int argc, char** argv) {
 
     //imprimeTUDO(Array, n, ap);
     srand(ap->seed);
+    
+    printf("size %d seed %d breaks %d\n", n, ap->seed, countBreak(Array, 0, n));
 
     int partitionSize = definePartitionSize(Array, n, ap);
-    int breakMax = defineBreakLimit(Array, n, ap);
+    //int breakMax = defineBreakLimit(Array, n, ap);
 
-    printf("\nO limite otimizado de quebra eh: %d", breakMax);
+    //printf("\nO limite otimizado de quebra eh: %d", breakMax);
     printf("\nO tamanho otimizado de particao eh: %d\n", partitionSize);
     
     deleteArrayParameters(ap);

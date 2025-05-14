@@ -1,6 +1,6 @@
 #include "arrayparameters.h"
 
-ArrayParameters* setArrayParameters(unsigned int seed, double a, double b, double c, int limiarCusto, ArrayParameters* ap){
+ArrayParameters* setArrayParameters(unsigned int seed, double a, double b, double c, double limiarCusto, ArrayParameters* ap){
     ap->seed = seed;
     ap->a = a;
     ap->b = b;
