@@ -17,5 +17,6 @@ void registraEstatisticas(double* A, int index, Custo* custo, ArrayParameters* a
 int menorCusto(double* A, int size);
 int menorCustoDiff(double* A, double* B, int size);
 double absolute(double d);
+double truncate(double value);
 
 #endif

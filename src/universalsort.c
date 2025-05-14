@@ -154,6 +154,8 @@ void arrayShuffler(int* A, int tam, int totalBreaks){
         while(i1 == i2){
             i1 = (rand() % tam);
             i2 = (rand() % tam);
+            //i1 = (int)(drand48() * (tam - 1));
+            //i2 = (int)(drand48() * (tam - 1));
         }
 
         int temp = A[i1];

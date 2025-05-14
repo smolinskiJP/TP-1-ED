@@ -21,17 +21,19 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
             //registraEstatisticas(custos, numLQ, custo, ap);
             //printf("");
             //numLQ++;
+            srand(ap->seed);
+            //srand48(ap->seed);
 
             OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
 
             //quickSort
             registraEstatisticas(custosQ, numLQ, custoQuick, ap);
-            printf("qs lq %d cost %.9lf comp %d move %d calls %d\n", t, custosQ[numLQ], custoQuick->compare, custoQuick->moves, custoQuick->calls);
+            printf("qs lq %d cost %.9lf cmp %d move %d calls %d\n", t, custosQ[numLQ], custoQuick->compare, custoQuick->moves, custoQuick->calls);
             resetCusto(custoQuick);
 
             //insertionSort
             registraEstatisticas(custosI, numLQ, custoInsertion, ap);
-            printf("in lq %d cost %.9lf comp %d move %d calls %d\n", t, custosI[numLQ], custoInsertion->compare, custoInsertion->moves, custoInsertion->calls);
+            printf("in lq %d cost %.9lf cmp %d move %d calls %d\n", t, custosI[numLQ], custoInsertion->compare, custoInsertion->moves, custoInsertion->calls);
             resetCusto(custoInsertion);
 
             //OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion);
@@ -48,7 +50,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap){
         calculaNovaFaixa(minIndex, &minLQ, &maxLQ, numLQ, &stepLQ);
         diffCusto = absolute(custosI[maxLim - 2] - custosI[maxLim]);
 
-        printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, diffCusto);
+        printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, truncate(diffCusto));
 
         iter++;
     }while((diffCusto > ap->limiarCusto) && (numLQ >= 5));
@@ -92,7 +94,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
 
-        printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, diffCusto);
+        printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, truncate(diffCusto));
 
         iter++;
     } while ((diffCusto > ap->limiarCusto) && (numMPS >= 5));
@@ -150,4 +152,9 @@ int menorCustoDiff(double* A, double* B, int size){
 double absolute(double d){
     if(d < 0) return -1.0 * d;
     return d;
+}
+
+double truncate(double value){
+    double factor = 1e6;
+    return ((int)(value * factor)) / factor;
 }
