@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include "universalsort.h"
 #include "arrayparameters.h"
 #include "custo.h"

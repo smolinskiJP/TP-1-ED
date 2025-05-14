@@ -54,6 +54,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
 
         //printf("%.9lf %.9lf\n", custosI[maxLim - 2], custosI[maxLim]);
         //printf("%lf\n", diffCusto);
+        //printf("diffcusto: %.9lf\n", diffCusto);
         printf("numlq %d limQuebras %d lqdiff %.6lf\n", numLQ, limBreak, truncate(diffCusto));
 
         iter++;
@@ -98,6 +99,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         calculaNovaFaixa(minIndex, &minMPS, &maxMPS, numMPS, &stepMPS);
         diffCusto = absolute(custos[maxLim - 2] - custos[maxLim]);
         
+        //printf("diffcusto: %.9lf\n", diffCusto);
         printf("nummps %d limParticao %d mpsdiff %.6lf\n", numMPS, limParticao, truncate(diffCusto));
 
         iter++;
@@ -160,7 +162,7 @@ double absolute(double d){
 
 double truncate(double value){
     double factor = 1e6;
-    long int truncated = (long int)(value * factor);
-    printf("value %.9lf multiplier %lf truncated %ld\n", value, factor, truncated);
+    double epsilon = 1e-9;
+    long int truncated = (long int)(value * factor + epsilon);
     return (truncated / factor);
 }
