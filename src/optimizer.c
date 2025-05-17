@@ -5,8 +5,8 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
     int stepLQ = (maxLQ - minLQ) / 5;
     int limBreak, numLQ;
     float diffCusto;
-    double* custosQ = (double*)malloc(tam * sizeof(double));
-    double* custosI = (double*)malloc(tam * sizeof(double));
+    double* custosQ = (double*)malloc(10 * sizeof(double));
+    double* custosI = (double*)malloc(10 * sizeof(double));
     Custo* custoQuick = newCusto();
     Custo* custoInsertion = newCusto();
     int iter = 0;
