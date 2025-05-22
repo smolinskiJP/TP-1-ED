@@ -21,10 +21,8 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
             //registraEstatisticas(custos, numLQ, custo, ap);
             //printf("");
             //numLQ++;
-            srand(ap->seed);
-            //srand48(ap->seed);
 
-            OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion, MPS);
+            OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion, MPS, ap->seed);
 
             //quickSort
             registraEstatisticas(custosQ, numLQ, custoQuick, ap);
@@ -70,7 +68,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
     int stepMPS = (maxMPS - minMPS) / 5;
     int limParticao, numMPS;
     float diffCusto;
-    double* custos = (double*)malloc(tam * sizeof(double));
+    double* custos = (double*)malloc(10 * sizeof(double));
     Custo* custo = newCusto();
     int iter = 0;
 

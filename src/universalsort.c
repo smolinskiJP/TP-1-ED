@@ -121,25 +121,26 @@ void OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition
     free(B);
 }
 
-void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* custoQuick, Custo* custoInsertion, int MPS){
+void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* custoQuick, Custo* custoInsertion, int MPS, unsigned int seed){
     int* B = (int*)malloc(tam * sizeof(int));
-    int* C = (int*)malloc(tam * sizeof(int));
-
     arrayCopy(A, B, tam);
 
     quickSort3Ins(B, 0, tam - 1, custoQuick, MPS);
     resetCusto(custoQuick);
 
+    
+    srand(seed);
+    //srand48(seed);
     arrayShuffler(B, tam, breakMax);
-    arrayCopy(B, C, tam);
-
-    //imprime(B, tam);
-
     insertionSort(B, 0, tam - 1, custoInsertion);
-    quickSort3Ins(C, 0, tam - 1, custoQuick, MPS);
+
+
+    srand(seed);
+    //srand48(seed);
+    arrayShuffler(B, tam, breakMax);
+    quickSort3Ins(B, 0, tam - 1, custoQuick, MPS);
     //quickSortOptimizer(B, tam, 0, tam - 1, breakMax, custoQuick, custoInsertion);
 
-    free(C);
     free(B);
 }
 
