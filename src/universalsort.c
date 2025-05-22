@@ -126,9 +126,14 @@ int countBreak(int * A, int l, int tam){
 }
 
 //Calcula os testes para um tamanho especifico de particao e armazena em custo
-void OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition, Custo* custo){
+int OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition, Custo* custo){
     //Cria um vetor copiado do original que servira para o teste
     int* B = (int*)malloc(tam * sizeof(int));
+    //Tratamento de erro para alocacao
+    if(!B){
+        printf("Erro de memória");
+        return MEM_ERROR_SORT;
+    }
     arrayCopy(A, B, tam);
 
     //Inicialmente ja verificamos se o tamanho do vetor permite a chamada do Insertion
@@ -137,12 +142,18 @@ void OrdenadorUniversalPartitionOptimizer(int * A, int tam, int minSizePartition
 
     //Libera o vetor de teste
     free(B);
+    return TEST_SUCCESS;
 }
 
 //Calcula os testes para um numero especifico de quebras e armazena em custoQuick e custoInsertion
-void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* custoQuick, Custo* custoInsertion, int MPS, unsigned int seed){
+int OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* custoQuick, Custo* custoInsertion, int MPS, unsigned int seed){
     //Cria um vetor copiado do original que servira para o teste
     int* B = (int*)malloc(tam * sizeof(int));
+    //Tratamento de erro para alocacao
+    if(!B){
+        printf("Erro de memória");
+        return MEM_ERROR_SORT;
+    }
     arrayCopy(A, B, tam);
 
     //Ordena o vetor teste
@@ -169,6 +180,7 @@ void OrdenadorUniversalBreakOptimizer(int* A, int tam, int breakMax, Custo* cust
 
     //Libera o vetor de teste
     free(B);
+    return TEST_SUCCESS;
 }
 
 //Bagunça um vetor um número de vezes igual a totalBreaks

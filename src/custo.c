@@ -3,9 +3,6 @@
 //Aloca memoria para a variavel e a inicia com os valores zerados
 Custo* newCusto(void){
     Custo* c = (Custo*)malloc(sizeof(Custo));
-    c->calls = 0;
-    c->compare = 0;
-    c->moves = 0;
     return c;
 }
 

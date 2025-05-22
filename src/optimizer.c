@@ -15,12 +15,46 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
     float diffCusto;
 
     //Os dois vetores guardam o custo (resultado da função do enunciado) do Quick e do Insertion respectivamente
-    double* custosQ = (double*)malloc(10 * sizeof(double));
-    double* custosI = (double*)malloc(10 * sizeof(double));
+    double *custosQ, *custosI;
+
+    custosQ = (double*)malloc(10 * sizeof(double));
+    //Tratamento de erro para alocacao
+    if(!custosQ){
+        printf("Erro de memória");
+        return MEM_ERROR_OPT;
+    }
+    custosI = (double*)malloc(10 * sizeof(double));
+    //Tratamento de erro para alocacao
+    if(!custosI){
+        printf("Erro de memória");
+        free(custosQ);
+        return MEM_ERROR_OPT;
+    }
 
     //Variáveis do TAD custo que conta a quantidade de vezes que cada parâmetro analisado (move, cmp, call) foi chamado
-    Custo* custoQuick = newCusto();
-    Custo* custoInsertion = newCusto();
+    Custo *custoQuick, *custoInsertion;
+
+    custoQuick = newCusto();
+    //Tratamento de erro para alocacao
+    if(!custoQuick){
+        printf("Erro de memória");
+        free(custosQ);
+        free(custosI);
+        return MEM_ERROR_OPT;
+    }
+    
+    custoInsertion = newCusto();
+    //Tratamento de erro para alocacao
+    if(!custoInsertion){
+        printf("Erro de memória");
+        deleteCusto(custoQuick);
+        free(custosQ);
+        free(custosI);
+        return MEM_ERROR_OPT;
+    }
+
+    resetCusto(custoQuick);
+    resetCusto(custoInsertion);
 
     //Variável de iteração usada somente para a saída
     int iter = 0;
@@ -32,7 +66,14 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
         for(int t = minLQ; t <= maxLQ; t += stepLQ){
 
             //Essa função vai escrever o custo de cada um dos dois algoritmos para um número específico de quebras
-            OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion, MPS, ap->seed);
+            int flag = OrdenadorUniversalBreakOptimizer(A, tam, t, custoQuick, custoInsertion, MPS, ap->seed);
+            if(flag != TEST_SUCCESS) {
+                free(custosQ);
+                free(custosI);
+                deleteCusto(custoQuick);
+                deleteCusto(custoInsertion);
+                return flag;
+            }
 
             //quickSort estatísticas
             custosQ[numLQ] = calcCusto(custoQuick, ap->a, ap->b, ap->c);
@@ -96,8 +137,23 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
     //O vetor guarda o custo de cada teste (valor retornado pela função do enunciado)
     double* custos = (double*)malloc(10 * sizeof(double));
 
+    //Tratamento de erro para alocacao
+    if(!custos){
+        printf("Erro de memória");
+        return MEM_ERROR_OPT;
+    }
+
     //Variável que conta o número de operações do teste (cmp, move e calls)
     Custo* custo = newCusto();
+
+    //Tratamento de erro para alocacao
+    if(!custo){
+        printf("Erro de memória");
+        free(custos);
+        return MEM_ERROR_OPT;
+    }
+
+    resetCusto(custo);
 
     //Usada somente para a saída
     int iter = 0;
@@ -109,7 +165,12 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
         for (int t = minMPS; t <= maxMPS; t += stepMPS) {
 
             //Essa função vai escrever o custo do teste com o tamanho de partição atual
-            OrdenadorUniversalPartitionOptimizer(A, tam, t, custo);
+            int flag = OrdenadorUniversalPartitionOptimizer(A, tam, t, custo);
+            if(flag != TEST_SUCCESS){
+                free(custos);
+                deleteCusto(custo);
+                return flag;
+            }
 
             //Manipulando os valores adquiridos pelo teste
             custos[numMPS] = calcCusto(custo, ap->a, ap->b, ap->c);

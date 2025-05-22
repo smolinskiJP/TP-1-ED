@@ -6,6 +6,7 @@
 #include "universalsort.h"
 #include "arrayparameters.h"
 #include "custo.h"
+#define MEM_ERROR_OPT -2
 
 int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS);
 int definePartitionSize(int * A, int tam, ArrayParameters* ap);
