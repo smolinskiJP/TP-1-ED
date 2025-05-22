@@ -6,6 +6,7 @@ int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS){
     //A nossa faixa inicial vai de 1-quebra até "metade do tamanho do vetor"-quebras
     int minLQ = 1, maxLQ = tam / 2;
     int stepLQ = (maxLQ - minLQ) / 5;
+    if(stepLQ == 0) stepLQ++;
 
     //A variável limBreak guardará o número mais otimizado de quebras para a faixa calculada (Onde a diferença do Quick pro Insertion é menor)
     //A variável numLQ conta a quantidade de testes que foram feitos na faixa
@@ -126,6 +127,7 @@ int definePartitionSize(int* A, int tam, ArrayParameters* ap) {
     //A nossa faixa inicial vai de tamanho 2 até tamanho do vetor
     int minMPS = 2, maxMPS = tam;
     int stepMPS = (maxMPS - minMPS) / 5;
+    if(stepMPS == 0) stepMPS++;
     
     //A variável limParticao guardará tamanho mais otimizado de particao para a faixa calculada (Menor custo)
     //A variável numMPSconta a quantidade de testes que foram feitos na faixa
