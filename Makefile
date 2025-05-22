@@ -1,7 +1,12 @@
-all: bin/main
+all: bin/tp1.out
 
-bin/main: obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o
-	gcc -Wall -Iinclude obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o -o bin/main
+all_windows: bin/tp1.exe
+
+bin/tp1.exe: obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o
+	gcc -Wall -Iinclude obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o -o bin/tp1.exe
+
+bin/tp1.out: obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o
+	gcc -Wall -Iinclude obj/main.o obj/universalsort.o obj/custo.o obj/arrayparameters.o obj/optimizer.o -o bin/tp1.out
 
 obj/main.o: src/main.c include/arrayparameters.h include/optimizer.h
 	gcc -Wall -Iinclude -c src/main.c -o obj/main.o
