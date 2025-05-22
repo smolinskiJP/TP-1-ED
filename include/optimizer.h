@@ -10,9 +10,7 @@
 int defineBreakLimit(int* A, int tam, ArrayParameters* ap, int MPS);
 int definePartitionSize(int * A, int tam, ArrayParameters* ap);
 void calculaNovaFaixa(int limParticao, int* minMPS, int* maxMPS, int numMPS, int* stepMPS);
-int getMPS(int index, int start, int step);
-int getBreak(int index, int start, int step);
-void registraEstatisticas(double* A, int index, Custo* custo, ArrayParameters* ap);
+int getValueByStep(int index, int start, int step);
 int menorCusto(double* A, int size);
 int menorCustoDiff(double* A, double* B, int size);
 float absolute(double d);
