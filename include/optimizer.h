@@ -14,6 +14,5 @@ int getValueByStep(int index, int start, int step);
 int menorCusto(double* A, int size);
 int menorCustoDiff(double* A, double* B, int size);
 float absolute(double d);
-//double truncate(double value);
 
 #endif
